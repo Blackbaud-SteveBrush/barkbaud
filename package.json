@@ -1,15 +1,42 @@
 {
-  "name": "barkbaud-demo",
-  "version": "1.0.0",
-  "description": "",
+  "name": "barkbaud",
+  "version": "0.0.2",
+  "description": "A Blackbaud Sky API/UX demo application.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "database": "source .env && chmod a+x bin/setup.sh && source bin/setup.sh",
+    "barkbaud": "./bin/build.sh",
+    "start": "./bin/start.sh"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "express": "^4.13.4",
-    "mongoose": "^4.4.4"
+    "async": "^1.5.2",
+    "body-parser": "^1.14.1",
+    "connect-redis": "^3.0.1",
+    "connect-timeout": "^1.7.0",
+    "continuation-local-storage": "^3.1.6",
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "express-session": "^1.11.3",
+    "mongoose": "^4.4.4",
+    "request": "^2.64.0",
+    "request-promise": "^1.0.1",
+    "simple-oauth2": "^0.2.1"
+  },
+  "engines": {
+    "node": "0.12.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blackbaud/barkbaud"
+  },
+  "keywords": [
+    "blackbaud",
+    "renxt",
+    "skyux"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.8.1"
   }
 }
