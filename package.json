@@ -4,8 +4,7 @@
   "description": "A Blackbaud Sky API/UX demo application.",
   "main": "index.js",
   "scripts": {
-    "database": "source .env && chmod a+x bin/setup.sh && source bin/setup.sh",
-    "barkbaud": "./bin/build.sh",
+    "barkbaud": "chmod a+x bin/setup.sh && source bin/setup.sh",
     "start": "./bin/start.sh"
   },
   "dependencies": {

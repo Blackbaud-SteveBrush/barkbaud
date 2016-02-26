@@ -53,7 +53,6 @@
         uri: process.env.DATABASE_URI || '',
         service: mongoose
     });
-    db.connect();
 
     // Create the app.
     app = express();
@@ -95,7 +94,9 @@
             cert: fs.readFileSync('./server/sslcerts/server.crt', 'utf8')
         }, app);
     }
-    server.listen(app.get('port'), function () {
-        console.log('Node app is running on port', app.get('port'));
+    db.connect(function () {
+        server.listen(app.get('port'), function () {
+            console.log('Node app is running on port', app.get('port'));
+        });
     });
 }());
