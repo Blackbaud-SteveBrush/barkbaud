@@ -27,8 +27,7 @@
     session = require('express-session');
     Database = require('./server/database');
     mongoose = require('mongoose');
-    //RedisStore = require('connect-redis')(session);
-    var MongoStore = require('connect-mongo')(session);
+    RedisStore = require('connect-redis')(session);
     bodyParser = require('body-parser');
     timeout = require('connect-timeout');
     https = require('https');
@@ -46,13 +45,8 @@
     };
 
     if (environment === 'production') {
-/*
         sessionConfig.store = new RedisStore({
             url: process.env.REDIS_URL
-        });
-*/
-        sessionConfig.store = new MongoStore({
-            url: process.env.DATABASE_URI
         });
     }
 
