@@ -28,8 +28,8 @@
     session = require('express-session');
     Database = require('./server/database');
     mongoose = require('mongoose');
-    cookieParser = require('cookie-parser');
     MongoStore = require('connect-mongo/es5')(session);
+    //cookieParser = require('cookie-parser');
     bodyParser = require('body-parser');
     timeout = require('connect-timeout');
     https = require('https');
@@ -62,7 +62,7 @@
     app = express();
     app.set('port', port);
     app.use(bodyParser.json());
-    app.use(cookieParser());
+    //app.use(cookieParser());
     app.use(timeout('60s'));
     app.use(session(sessionConfig));
     app.use(cors({
