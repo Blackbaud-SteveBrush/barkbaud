@@ -34,7 +34,7 @@ if (isWindows) {
     ];
 } else {
     waterfall = [
-        './node_modules/bower/bin/bower install',
+        '../node_modules/bower/bin/bower install',
         'source .env',
         'heroku config:set AUTH_CLIENT_ID=$AUTH_CLIENT_ID AUTH_CLIENT_SECRET=$AUTH_CLIENT_SECRET AUTH_SUBSCRIPTION_KEY=$AUTH_SUBSCRIPTION_KEY AUTH_REDIRECT_URI=$AUTH_REDIRECT_URI DATABASE_URI=$DATABASE_URI',
         'grunt build',
