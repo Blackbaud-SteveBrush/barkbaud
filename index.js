@@ -69,10 +69,9 @@
             'http://localhost:8080'
         ]
     }));
-    app.use(express.static(__dirname + '/ui'));
+    app.use('/', express.static(__dirname + '/ui'));
 
     // Register routes.
-    app.get('/', routes.index);
     app.get('/auth/authenticated', routes.auth.getAuthenticated);
     app.get('/auth/login', routes.auth.getLogin);
     app.get('/auth/callback', routes.auth.getCallback);
