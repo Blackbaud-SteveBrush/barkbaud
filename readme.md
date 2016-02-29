@@ -32,8 +32,6 @@
 
 ### 6)  Build and test the application locally.
 
-`git remote add heroku git@heroku.com:<your-heroku-app-name>.git`
-
 Type:
 
 ```
@@ -53,8 +51,7 @@ barkbaud $ npm run production
 Type:
 
 ```
-barkbaud $ git add .
-barkbaud $ git commit -m "Made it better."
+barkbaud $ git remote add heroku git@heroku.com:<your-heroku-app-name>.git
 barkbaud $ git push heroku master
 ```
 

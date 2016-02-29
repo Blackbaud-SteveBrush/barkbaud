@@ -28,7 +28,7 @@
     Database = require('./server/database');
     mongoose = require('mongoose');
     RedisStore = require('connect-redis')(session);
-    var MongoStore = require('connect-mongo')(session);
+    var MongoStore = require('connect-mongo')(express);
     bodyParser = require('body-parser');
     timeout = require('connect-timeout');
     https = require('https');
@@ -44,7 +44,7 @@
         saveUninitialized: true,
         secret: '+rEchas&-wub24dR',
         store: new MongoStore({
-            url: "mongodb://stevebrush:steve883@ds019648.mlab.com:19648/barkbaud-session"
+            url: process.env.DATABASE_URI
         })
     };
 
