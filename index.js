@@ -17,7 +17,6 @@
         MongoStore,
         mongoose,
         port,
-        RedisStore,
         routes,
         server,
         session,
@@ -30,7 +29,6 @@
     Database = require('./server/database');
     mongoose = require('mongoose');
     cookieParser = require('cookie-parser');
-    //RedisStore = require('connect-redis')(session);
     MongoStore = require('connect-mongo/es5')(session);
     bodyParser = require('body-parser');
     timeout = require('connect-timeout');
@@ -40,7 +38,7 @@
     fs = require('fs');
 
     callbacks = [];
-    environment = process.env.NODE_ENV || 'production';
+    environment = process.env.NODE_ENV || 'development';
     port = process.env.PORT || 5000;
     sessionConfig = {
         resave: false,
@@ -49,12 +47,6 @@
     };
 
     if (environment === 'production') {
-        /*
-        sessionConfig.store = new RedisStore({
-            url: process.env.REDIS_URL
-        });
-        */
-        console.log("PRODOCUTION");
         sessionConfig.store = new MongoStore({
             url: process.env.DATABASE_URI
         });
