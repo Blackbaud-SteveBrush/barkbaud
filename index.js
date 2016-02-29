@@ -54,6 +54,7 @@
             url: process.env.REDIS_URL
         });
         */
+        console.log("PRODOCUTION");
         sessionConfig.store = new MongoStore({
             url: process.env.DATABASE_URI
         });
