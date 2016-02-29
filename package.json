@@ -4,8 +4,8 @@
   "description": "A Blackbaud Sky API/UX demo application.",
   "main": "index.js",
   "scripts": {
-    "setup": "node bin/setup",
-    "start": "node bin/start",
+    "setup": "node ./bin/setup",
+    "start": "node ./bin/start",
     "postinstall": "node bin/setup"
   },
   "dependencies": {
@@ -38,6 +38,7 @@
   "license": "MIT",
   "devDependencies": {
     "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-copy": "^0.8.1"
   }
 }

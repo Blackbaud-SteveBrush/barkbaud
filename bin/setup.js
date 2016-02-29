@@ -49,7 +49,9 @@ function start() {
         require('../index.js');
     });
 }
+start();
 
+/*
 fs.open('node_modules', 'r', function (error) {
     if (error && error.code === 'ENOENT') {
         start();
@@ -65,3 +67,4 @@ fs.open('node_modules', 'r', function (error) {
         });
     }
 });
+*/
