@@ -44,7 +44,7 @@
         saveUninitialized: true,
         secret: '+rEchas&-wub24dR',
         store: new MongoStore({
-            url: process.env.DATABASE_URI
+            url: "mongodb://stevebrush:steve883@ds019648.mlab.com:19648/barkbaud-session"
         })
     };
 

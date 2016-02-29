@@ -32,6 +32,8 @@
 
 ### 6)  Build and test the application locally.
 
+`git remote add heroku git@heroku.com:<your-heroku-app-name>.git`
+
 Type:
 
 ```
