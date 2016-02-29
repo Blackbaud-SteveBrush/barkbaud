@@ -40,7 +40,7 @@
     fs = require('fs');
 
     callbacks = [];
-    environment = process.env.NODE_ENV || 'development';
+    environment = process.env.NODE_ENV || 'production';
     port = process.env.PORT || 5000;
     sessionConfig = {
         resave: false,
