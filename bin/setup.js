@@ -1,63 +1,57 @@
-var exec = require('child_process').exec;
+var configVars;
+var dotenv = require('dotenv').config();
+var sequence = require(__dirname + '/lib/sequence');
 var fs = require('fs');
 var isWindows = /^win/.test(process.platform);
-var waterfall = [];
+var commands = [];
 
-function series(commands, callback) {
-    function executeNext() {
-        exec(commands.shift(), function (error, output, outputLog) {
-            if (error) {
-                console.log('Error: ' + error);
-                return;
-            }
-            if (output) {
-                console.log(output);
-            }
-            if (outputLog) {
-                console.log(outputLog);
-            }
-            if (commands.length) {
-                executeNext();
-            } else {
-                callback();
-            }
-        });
-    }
-    executeNext();
-}
-
+// Windows.
 if (isWindows) {
-    waterfall = [
+    commands = [
+        'npm install',
         'bower install',
         'grunt build',
         'env.bat'
     ];
+
+
+// Everything else.
 } else {
-    waterfall = [
+    configVars = [
+        'AUTH_CLIENT_ID=' + process.env.AUTH_CLIENT_ID,
+        'AUTH_CLIENT_SECRET=' + process.env.AUTH_CLIENT_SECRET,
+        'AUTH_SUBSCRIPTION_KEY=' + process.env.AUTH_SUBSCRIPTION_KEY,
+        'AUTH_REDIRECT_URI=' + process.env.AUTH_REDIRECT_URI,
+        'DATABASE_URI=' + process.env.DATABASE_URI
+    ];
+    commands = [
+        'npm install --ignore-scripts',
         'bower install',
-        'source .env',
-        'heroku config:set AUTH_CLIENT_ID=$AUTH_CLIENT_ID AUTH_CLIENT_SECRET=$AUTH_CLIENT_SECRET AUTH_SUBSCRIPTION_KEY=$AUTH_SUBSCRIPTION_KEY AUTH_REDIRECT_URI=$AUTH_REDIRECT_URI DATABASE_URI=$DATABASE_URI',
-        'grunt build',
+        'heroku config:set ' + configVars.join(" "),
+        'grunt build'
     ];
 }
 
+
 function start() {
-    console.log("Setup started... (This may take a few minutes.)");
-    series(waterfall, function () {
-        console.log("Done!");
+    console.log("Setup started (this may take a few minutes)...");
+    sequence(commands, function () {
+        console.log("Setup finished.");
         process.env.npm_config_build_database = true;
-        require('../index.js');
+        var app = require('../index.js');
+        app.ready(function () {
+            console.log("Setup complete!");
+        });
     });
 }
-start();
 
-/*
+
 fs.open('node_modules', 'r', function (error) {
     if (error && error.code === 'ENOENT') {
         start();
     } else {
         var yesno = require('yesno');
-        yesno.ask('This process will reset your database to defaults, and overwrite everything in the ui/ folder. Are you sure you want to continue?', true, function (ok) {
+        yesno.ask('This process will reset your database to defaults, and overwrite everything in the ui/ folder. Are you sure you want to continue? (Y/n)', true, function (ok) {
             if (ok) {
                 start();
             } else {
@@ -67,4 +61,3 @@ fs.open('node_modules', 'r', function (error) {
         });
     }
 });
-*/

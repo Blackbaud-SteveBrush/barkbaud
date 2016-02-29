@@ -8,8 +8,10 @@
     mongoose = require('mongoose');
 
     function buildDatabase(callback) {
-        var dogs;
+        var counter,
+            dogs;
 
+        counter = 0;
         dogs = [];
 
         console.log("Creating database documents...");
@@ -23,7 +25,7 @@
             createdAt: "2015-10-16T19:18:12.685Z",
             gender: "Male",
             image: {
-                file: "baron.png"
+                file: "baron.jpg"
             },
             name: "Baron",
             notes: [
@@ -172,7 +174,7 @@
             createdAt: "2015-10-15T17:24:13.642Z",
             gender: "Female",
             image: {
-                file: "pebbles.jpeg"
+                file: "pebbles.jpg"
             },
             name: "Pebbles",
             notes: [
@@ -202,7 +204,7 @@
             createdAt: "2015-10-16T20:54:25.364Z",
             gender: "Male",
             image: {
-                file: "dash.jpeg"
+                file: "dash.jpg"
             },
             name: "Dash",
             notes: [],
@@ -224,7 +226,7 @@
             createdAt: "2015-10-15T17:56:55.193Z",
             gender: "Female",
             image: {
-                file: "boo.jpeg"
+                file: "boo.jpg"
             },
             name: "Boo",
             notes: [],
@@ -246,7 +248,7 @@
             createdAt: "2015-10-15T18:03:41.918Z",
             gender: "Female",
             image: {
-                file: "lilly.jpeg"
+                file: "lilly.jpg"
             },
             name: "Lilly",
             notes: [
@@ -283,7 +285,7 @@
             createdAt: "2015-10-16T19:44:00.123Z",
             gender: "Female",
             image: {
-                file: "komeki.jpeg"
+                file: "komeki.jpg"
             },
             name: "Komeki",
             notes: [],
@@ -305,7 +307,7 @@
             createdAt: "2015-10-15T18:01:27.831Z",
             gender: "Female",
             image: {
-                file: "eva.jpeg"
+                file: "eva.jpg"
             },
             name: "Eva",
             notes: [],
@@ -327,7 +329,7 @@
             createdAt: "2015-10-15T18:02:44.400Z",
             gender: "Male",
             image: {
-                file: "jeb.jpeg"
+                file: "jeb.jpg"
             },
             name: "Jeb",
             notes: [
@@ -357,7 +359,7 @@
             createdAt: "2015-10-16T19:50:20.836Z",
             gender: "Female",
             image: {
-                file: "elsa.png"
+                file: "elsa.jpg"
             },
             name: "Elsa",
             notes: [
@@ -401,7 +403,7 @@
             createdAt: "2015-10-16T19:15:10.076Z",
             gender: "Male",
             image: {
-                file: "boomer.png"
+                file: "boomer.jpg"
             },
             name: "Boomer",
             notes: [],
@@ -409,7 +411,6 @@
             updatedAt: "2015-10-16T20:07:44.656Z"
         }));
 
-        var counter = 0;
         dogs.forEach(function (dog) {
             dog.save(function (error) {
                 ++counter;
@@ -461,7 +462,7 @@
             });
 
             imagesLength = images.length;
-            console.log("Preparing to convert " + imagesLength + " images. (This may take a few minutes...)");
+            console.log("Converting " + imagesLength + " images...");
 
             images.forEach(function (file, i) {
 
@@ -484,7 +485,7 @@
                             console.error('Error saving file ' + file, err);
                         }
                         ++counter;
-                        console.log(file + " converted to Base64 and saved.");
+                        console.log("(" + counter + " of " + imagesLength + ") " + file + " converted to Base64 and saved.");
 
                         if (counter === imagesLength) {
                             console.log("Database images converted.");
@@ -497,14 +498,8 @@
     }
 
     module.exports = function (callback) {
-        if (process.env.npm_config_build_database) {
-            buildDatabase(function () {
-                addImages(callback);
-            });
-        } else {
-            if (callback) {
-                callback();
-            }
-        }
+        buildDatabase(function () {
+            addImages(callback);
+        });
     };
 }());

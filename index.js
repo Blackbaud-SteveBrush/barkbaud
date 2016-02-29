@@ -4,6 +4,7 @@
 
     var app,
         bodyParser,
+        callbacks,
         cors,
         Database,
         db,
@@ -34,6 +35,7 @@
     cors = require('cors');
     fs = require('fs');
 
+    callbacks = [];
     environment = process.env.NODE_ENV || 'development';
     port = process.env.PORT || 5000;
     sessionConfig = {
@@ -83,20 +85,47 @@
     app.get('/api/dogs/:dogId/previoushomes', routes.auth.checkSession, routes.api.dog.getPreviousHomes);
     app.get('/api/dogs/:dogId/findhome', routes.auth.checkSession, routes.api.dog.getFindHome);
     app.post('/api/dogs/:dogId/currenthome', routes.auth.checkSession, routes.api.dog.postCurrentHome);
-    app.post('/api/dogs/:dogId/notes', routes.auth.checkSession, routes.api.dog.postNotes);
+    app.post('/api/dogs/:dogId/notes', routes.auth.checkSession, routes.api.dog.postNotes)
 
-    // Create the server.
-    if (environment === 'production') {
-        server = http.createServer(app);
-    } else {
-        server = https.createServer({
-            key: fs.readFileSync('./server/sslcerts/server.key', 'utf8'),
-            cert: fs.readFileSync('./server/sslcerts/server.crt', 'utf8')
-        }, app);
-    }
+    // Connect to the database.
     db.connect(function () {
-        server.listen(app.get('port'), function () {
-            console.log('Node app is running on port', app.get('port'));
-        });
+
+        // If we're building the database, we don't need to run the server.
+        if (process.env.npm_config_build_database) {
+
+            db.setup(function () {
+                if (callbacks.length > 0) {
+                    callbacks.forEach(function (callback) {
+                        callback();
+                    });
+                }
+                process.exit();
+            });
+
+        } else {
+
+            // Create the server.
+            if (environment === 'production') {
+                server = http.createServer(app);
+            } else {
+                server = https.createServer({
+                    key: fs.readFileSync('./server/sslcerts/server.key', 'utf8'),
+                    cert: fs.readFileSync('./server/sslcerts/server.crt', 'utf8')
+                }, app);
+            }
+
+            // Listen to the port.
+            server.listen(app.get('port'), function () {
+                console.log('Node app is running on port', app.get('port'));
+            });
+        }
+
     });
+
+    module.exports = {
+        ready: function (callback) {
+            callbacks.push(callback);
+        }
+    };
+
 }());

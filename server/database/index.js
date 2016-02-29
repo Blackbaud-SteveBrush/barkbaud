@@ -14,8 +14,11 @@
 
         this.connect = function (callback) {
             service.connect(uri);
-            setup(callback);
+            callback();
         };
+
+        this.setup = setup;
+
         return this;
     }
 

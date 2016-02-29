@@ -2,8 +2,8 @@ npm-debug.log
 node_modules
 bower_components
 .env
-!.env.sample
+!.env-sample
 env.bat
-!envsample.bat
+!env-sample.bat
 .DS_Store
 ui
