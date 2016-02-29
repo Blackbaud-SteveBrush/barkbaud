@@ -28,7 +28,7 @@
     Database = require('./server/database');
     mongoose = require('mongoose');
     RedisStore = require('connect-redis')(session);
-    var MongoStore = require('connect-mongo')(express);
+    var MongoStore = require('connect-mongo')(session);
     bodyParser = require('body-parser');
     timeout = require('connect-timeout');
     https = require('https');
@@ -42,19 +42,19 @@
     sessionConfig = {
         resave: false,
         saveUninitialized: true,
-        secret: '+rEchas&-wub24dR',
-        store: new MongoStore({
-            url: process.env.DATABASE_URI
-        })
+        secret: '+rEchas&-wub24dR'
     };
 
-/*
     if (environment === 'production') {
+/*
         sessionConfig.store = new RedisStore({
             url: process.env.REDIS_URL
         });
-    }
 */
+        sessionConfig.store = new MongoStore({
+            url: process.env.DATABASE_URI
+        });
+    }
 
     // Connect to the database.
     db = new Database({
