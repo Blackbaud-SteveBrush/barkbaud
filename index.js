@@ -28,7 +28,6 @@
     Database = require('./server/database');
     mongoose = require('mongoose');
     RedisStore = require('connect-redis')(session);
-    var MongoStore = require('connect-mongo')(session);
     bodyParser = require('body-parser');
     timeout = require('connect-timeout');
     https = require('https');
@@ -49,11 +48,6 @@
         sessionConfig.store = new RedisStore({
             url: process.env.REDIS_URL
         });
-/*
-        sessionConfig.store = new MongoStore({
-            url: process.env.DATABASE_URI
-        });
-*/
     }
 
     // Connect to the database.
