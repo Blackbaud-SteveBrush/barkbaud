@@ -18,11 +18,12 @@ function start() {
     sequence(commands, function () {
 
         dotenv = require('dotenv').config();
+
         configVars = [
             'AUTH_CLIENT_ID=' + process.env.AUTH_CLIENT_ID,
             'AUTH_CLIENT_SECRET=' + process.env.AUTH_CLIENT_SECRET,
             'AUTH_SUBSCRIPTION_KEY=' + process.env.AUTH_SUBSCRIPTION_KEY,
-            'AUTH_REDIRECT_URI=' + process.env.AUTH_REDIRECT_URI,
+            'AUTH_REDIRECT_URI=' + process.env.AUTH_REDIRECT_URI_PROD,
             'DATABASE_URI=' + process.env.DATABASE_URI,
             'REDIS_URL=' + process.env.REDIS_URL
         ];
