@@ -1,4 +1,4 @@
-var execute = require(__dirname + '/lib/sequence');
+var sequence = require(__dirname + '/lib/sequence');
 var fs = require('fs');
 var commands = [];
 
@@ -7,8 +7,6 @@ commands = [
     'grunt build'
 ];
 
-console.log("Deployment started...");
-execute(commands, function () {
-    console.log("Deployment finished.");
-    require('../index.js');
+sequence(commands, function () {
+    //require('../index.js');
 });
