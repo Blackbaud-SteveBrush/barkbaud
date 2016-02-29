@@ -5,6 +5,7 @@
     var app,
         bodyParser,
         callbacks,
+        cookieParser,
         cors,
         Database,
         db,
@@ -13,6 +14,7 @@
         fs,
         http,
         https,
+        MongoStore,
         mongoose,
         port,
         RedisStore,
@@ -27,7 +29,9 @@
     session = require('express-session');
     Database = require('./server/database');
     mongoose = require('mongoose');
-    RedisStore = require('connect-redis')(session);
+    cookieParser = require('cookie-parser');
+    //RedisStore = require('connect-redis')(session);
+    MongoStore = require('connect-mongo')(session);
     bodyParser = require('body-parser');
     timeout = require('connect-timeout');
     https = require('https');
@@ -45,8 +49,13 @@
     };
 
     if (environment === 'production') {
+        /*
         sessionConfig.store = new RedisStore({
             url: process.env.REDIS_URL
+        });
+        */
+        sessionConfig.store = new MongoStore({
+            url: process.env.DATABASE_URI
         });
     }
 
@@ -60,6 +69,7 @@
     app = express();
     app.set('port', port);
     app.use(bodyParser.json());
+    app.use(cookieParser());
     app.use(timeout('60s'));
     app.use(session(sessionConfig));
     app.use(cors({

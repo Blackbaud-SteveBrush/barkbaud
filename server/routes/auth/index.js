@@ -173,6 +173,8 @@ module.exports = function () {
 
         if (request && request.session && request.session.ticket && request.session.expires) {
 
+            console.log(request.session.ticket);
+
             dtCurrent = new Date();
             dtExpires = new Date(request.session.expires);
 
