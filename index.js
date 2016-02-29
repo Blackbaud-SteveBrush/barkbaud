@@ -31,7 +31,7 @@
     mongoose = require('mongoose');
     cookieParser = require('cookie-parser');
     //RedisStore = require('connect-redis')(session);
-    MongoStore = require('connect-mongo')(session);
+    MongoStore = require('connect-mongo/es5')(session);
     bodyParser = require('body-parser');
     timeout = require('connect-timeout');
     https = require('https');
