@@ -28,17 +28,16 @@ function series(commands, callback) {
 
 if (isWindows) {
     waterfall = [
-        'npm install',
         'bower install',
         'grunt build',
         'env.bat'
     ];
 } else {
     waterfall = [
-        'npm install',
         'bower install',
+        'source .env',
+        'heroku config:set AUTH_CLIENT_ID=$AUTH_CLIENT_ID AUTH_CLIENT_SECRET=$AUTH_CLIENT_SECRET AUTH_SUBSCRIPTION_KEY=$AUTH_SUBSCRIPTION_KEY AUTH_REDIRECT_URI=$AUTH_REDIRECT_URI DATABASE_URI=$DATABASE_URI NODE_ENV=$NODE_ENV PORT=$PORT',
         'grunt build',
-        'source .env'
     ];
 }
 
