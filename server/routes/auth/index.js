@@ -171,7 +171,7 @@ module.exports = function () {
             dtExpires,
             token;
 
-        if (request && request.session && request.session.ticket && request.session.expires) {
+        if (request.session.ticket && request.session.expires) {
 
             dtCurrent = new Date();
             dtExpires = new Date(request.session.expires);
