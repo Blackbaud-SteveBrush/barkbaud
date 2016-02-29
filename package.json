@@ -4,8 +4,8 @@
   "description": "A Blackbaud Sky API/UX demo application.",
   "main": "index.js",
   "scripts": {
-    "barkbaud": "chmod a+x bin/setup.sh && source bin/setup.sh",
-    "start": "./bin/start.sh"
+    "setup": "node bin/setup",
+    "start": "node bin/start"
   },
   "dependencies": {
     "async": "^1.5.2",
@@ -19,7 +19,8 @@
     "mongoose": "^4.4.4",
     "request": "^2.64.0",
     "request-promise": "^1.0.1",
-    "simple-oauth2": "^0.2.1"
+    "simple-oauth2": "^0.2.1",
+    "yesno": "0.0.1"
   },
   "engines": {
     "node": "0.12.7"
