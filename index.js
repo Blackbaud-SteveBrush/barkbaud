@@ -46,14 +46,14 @@
     };
 
     if (environment === 'production') {
-/*
         sessionConfig.store = new RedisStore({
             url: process.env.REDIS_URL
         });
-*/
+/*
         sessionConfig.store = new MongoStore({
             url: process.env.DATABASE_URI
         });
+*/
     }
 
     // Connect to the database.
