@@ -23,7 +23,8 @@ function start() {
             'AUTH_CLIENT_SECRET=' + process.env.AUTH_CLIENT_SECRET,
             'AUTH_SUBSCRIPTION_KEY=' + process.env.AUTH_SUBSCRIPTION_KEY,
             'AUTH_REDIRECT_URI=' + process.env.AUTH_REDIRECT_URI,
-            'DATABASE_URI=' + process.env.DATABASE_URI
+            'DATABASE_URI=' + process.env.DATABASE_URI,
+            'REDIS_URL=' + process.env.REDIS_URL
         ];
 
         commands = [
