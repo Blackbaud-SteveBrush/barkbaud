@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "setup": "node ./bin/setup",
-    "start": "node ./bin/local",
+    "local": "node ./bin/local",
     "postinstall": "node ./bin/deploy"
   },
   "dependencies": {
