@@ -53,27 +53,6 @@
                     updatedAt: "2016-01-07T21:03:14.678Z"
                 },
                 {
-                    createdAt: "2016-01-25T13:12:01.439Z",
-                    date: "2016-01-25T13:12:01.432Z",
-                    description: "Test Description",
-                    title: "Test",
-                    updatedAt: "2016-01-25T13:12:01.439Z"
-                },
-                {
-                    createdAt: "2015-11-23T16:24:55.771Z",
-                    date: "2015-11-23T16:24:55.740Z",
-                    description: "sorry wendy",
-                    title: "fleas again!",
-                    updatedAt: "2015-11-23T16:24:55.771Z"
-                },
-                {
-                    createdAt: "2015-11-02T15:37:00.354Z",
-                    date: "2015-11-02T15:37:00.308Z",
-                    description: "fdafjdsajfdjafda",
-                    title: "Got shots last week for worms.",
-                    updatedAt: "2015-11-02T15:37:00.354Z"
-                },
-                {
                     createdAt: "2015-10-27T21:04:04.807Z",
                     date: "2015-10-27T21:04:04.769Z",
                     description: "Yikes!",

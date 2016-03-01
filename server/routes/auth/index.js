@@ -10,17 +10,21 @@
  *  {@link getCallback}
  *  {@link getLogout}
  */
-module.exports = function () {
+
+(function () {
     'use strict';
 
-    var crypto = require('crypto'),
-        oauth2 = require('simple-oauth2')({
-            clientID: process.env.AUTH_CLIENT_ID,
-            clientSecret: process.env.AUTH_CLIENT_SECRET,
-            authorizationPath: process.env.AUTH_PATH || '/authorization',
-            site: process.env.AUTH_SITE_URL || 'https://oauth2.sky.blackbaud.com',
-            tokenPath: process.env.AUTH_TOKEN_PATH || '/token'
-        });
+    var crypto,
+        oauth2;
+
+    crypto = require('crypto');
+    oauth2 = require('simple-oauth2')({
+        clientID: process.env.AUTH_CLIENT_ID,
+        clientSecret: process.env.AUTH_CLIENT_SECRET,
+        authorizationPath: process.env.AUTH_PATH || '/authorization',
+        site: process.env.AUTH_SITE_URL || 'https://oauth2.sky.blackbaud.com',
+        tokenPath: process.env.AUTH_TOKEN_PATH || '/token'
+    });
 
     /**
      *
@@ -192,12 +196,11 @@ module.exports = function () {
         }
     }
 
-    return {
+    module.exports = {
         checkSession: checkSession,
         getAuthenticated: getAuthenticated,
         getCallback: getCallback,
         getLogin: getLogin,
         getLogout: getLogout
     };
-
-};
+}());

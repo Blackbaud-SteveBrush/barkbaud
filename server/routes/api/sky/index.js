@@ -1,15 +1,10 @@
 /*jshint node: true */
-'use strict';
+(function () {
+    'use strict';
 
-/**
- * Class which lightly wraps a few of RENXT API endpoints.
- * @constructor
- * @returns {Object}
- *  {@link getConstituent}
- */
-module.exports = function (auth) {
+    var promise;
 
-    var promise = require('request-promise');
+    promise = require('request-promise');
 
     /**
      * Proxy method to the RENXT api.
@@ -91,14 +86,19 @@ module.exports = function (auth) {
      * @param {string} constituentId Id of the constituent to retrieve
      * @param {Function} callback
      */
-    function postNotes(request, constituentId, body, callback) {
-        post(request, 'constitmgmt/constituents/' + constituentId + '/notes', body, callback);
+    function postNotes(request, body, callback) {
+        post(request, 'constitmgmt/notes', body, callback);
     }
 
-    // Expose any methods from our module
-    return {
+    /**
+     * Class which lightly wraps a few of RENXT API endpoints.
+     * @constructor
+     * @returns {Object}
+     *  {@link getConstituent}
+     */
+    module.exports = {
         getConstituent: getConstituent,
         getConstituentSearch: getConstituentSearch,
         postNotes: postNotes
     };
-};
+}());

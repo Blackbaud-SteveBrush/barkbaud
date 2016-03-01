@@ -23,6 +23,7 @@
         sessionConfig,
         timeout;
 
+    // Dependencies.
     fs = require('fs');
     cors = require('cors');
     http = require('http');
@@ -45,7 +46,7 @@
         secret: '+rEchas&-wub24dR'
     };
 
-    // Only cache the authorized session on production.
+    // Only cache the authorized session in production.
     if (environment === "production") {
         sessionConfig.store = new MongoStore({
             url: process.env.DATABASE_URI
@@ -71,6 +72,9 @@
             'http://localhost:8080'
         ]
     }));
+
+    // Routes.
+
     app.use('/', express.static(__dirname + '/ui'));
 
     app.get('/auth/authenticated', routes.auth.getAuthenticated);
@@ -81,7 +85,6 @@
     app.get('/api/dogs', routes.auth.checkSession, routes.api.dog.getDogs);
     app.get('/api/dogs/:dogId', routes.auth.checkSession, routes.api.dog.getDog);
     app.get('/api/dogs/:dogId/notes', routes.auth.checkSession, routes.api.dog.getNotes);
-    app.get('/api/dogs/:dogId/photo', routes.auth.checkSession, routes.api.dog.getPhoto);
     app.get('/api/dogs/:dogId/currenthome', routes.auth.checkSession, routes.api.dog.getCurrentHome);
     app.get('/api/dogs/:dogId/previoushomes', routes.auth.checkSession, routes.api.dog.getPreviousHomes);
     app.get('/api/dogs/:dogId/findhome', routes.auth.checkSession, routes.api.dog.getFindHome);
