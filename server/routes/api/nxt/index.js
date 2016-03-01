@@ -70,7 +70,7 @@ module.exports = function (auth) {
      * @param {Function} callback
      */
     function getConstituent(request, constituentId, callback) {
-        get(request, 'constituents/' + constituentId, callback);
+        get(request, 'constitmgmt/constituents/' + constituentId, callback);
     }
 
     /**
@@ -81,7 +81,7 @@ module.exports = function (auth) {
      * @param {Function} callback
      */
     function getConstituentSearch(request, name, callback) {
-        get(request, 'constituents/search?searchText=' + name, callback);
+        get(request, 'constitmgmt/constituents/search?searchText=' + name, callback);
     }
 
     /**
@@ -92,7 +92,7 @@ module.exports = function (auth) {
      * @param {Function} callback
      */
     function postNotes(request, constituentId, body, callback) {
-        post(request, 'constituents/' + constituentId + '/notes', body, callback);
+        post(request, 'constitmgmt/constituents/' + constituentId + '/notes', body, callback);
     }
 
     // Expose any methods from our module

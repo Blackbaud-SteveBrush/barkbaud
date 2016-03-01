@@ -163,66 +163,58 @@ module.exports = function (apiNxt) {
      * @returns {Object}
      */
     function getPreviousHomes(request, response) {
-        Dog.findOne({
-            '_id': request.params.dogId
-        }).exec(function (error, dog) {
-            var owners,
-                waterfall;
+        Dog.aggregate([
+            { $match: {
+                '_id': mongoose.Types.ObjectId(request.params.dogId)
+            } },
+            { $unwind: "$owners" },
+            { $project: {
+                _id: '$owners._id',
+                constituentId: '$owners.constituentId',
+                fromDate: '$owners.fromDate',
+                toDate: '$owners.toDate',
+                isActive: '$owners.isActive'
+            } },
+            { $match: {
+                isActive: false
+            } },
+            { $sort: {
+                fromDate: -1
+            } }
+        ], function (error, owners) {
+
+            var waterfall;
 
             if (error) {
-                return onParseError(response, error);
+                console.log(error);
+                return;
             }
 
-            if (dog.owners.length === 0) {
-                return response.json({
-                    data: []
+            waterfall = [];
+
+            function fetchConstituent(index, callback) {
+                apiNxt.getConstituent(request, owners[index].constituentId, function (constituent) {
+                    owners[index].constituent = constituent;
+                    if (typeof callback === "function") {
+                        callback(null, ++index);
+                    }
                 });
             }
 
-            Dog.aggregate([
-                { $unwind: "$owners" },
-                { $project: {
-                    _id: '$owners._id',
-                    constituentId: '$owners.constituentId',
-                    fromDate: '$owners.fromDate',
-                    toDate: '$owners.toDate',
-                    isActive: '$owners.isActive'
-                }},
-                { $match: { isActive: false } },
-                { $sort: { fromDate: -1 } }
-            ], function (error, owners) {
+            owners.forEach(function (owner, i) {
+                if (i === 0) {
+                    waterfall.push(async.apply(fetchConstituent, i));
+                } else {
+                    waterfall.push(fetchConstituent);
+                }
+            });
 
+            async.waterfall(waterfall, function (error, result) {
                 if (error) {
-                    console.log(error);
-                    return;
+                    return onParseError(response, error);
                 }
-
-                function fetchConstituent(index, callback) {
-                    apiNxt.getConstituent(request, owners[index].constituentId, function (constituent) {
-                        owners[index].constituent = constituent;
-                        if (typeof callback === "function") {
-                            callback(null, ++index);
-                        }
-                    });
-                }
-
-                waterfall = [];
-
-                owners.forEach(function (owner, i) {
-                    if (i === 0) {
-                        waterfall.push(async.apply(fetchConstituent, i));
-                    } else {
-                        waterfall.push(fetchConstituent);
-                    }
-                });
-
-                async.waterfall(waterfall, function (error, result) {
-                    if (error) {
-                        return onParseError(response, error);
-                    }
-                    response.json({
-                        data: owners
-                    });
+                response.json({
+                    data: owners
                 });
             });
         });

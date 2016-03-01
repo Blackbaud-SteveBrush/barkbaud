@@ -1,9 +1,11 @@
 (function () {
     'use strict';
 
-    var Dog,
+    var colors,
+        Dog,
         mongoose;
 
+    colors = require('colors');
     Dog = require('../models/dog.js');
     mongoose = require('mongoose');
 
@@ -14,7 +16,7 @@
         counter = 0;
         dogs = [];
 
-        console.log("Creating database documents...");
+        console.log("Creating database documents...".cyan);
 
         // Clean out any records first.
         Dog.collection.remove();
@@ -413,14 +415,18 @@
 
         dogs.forEach(function (dog) {
             dog.save(function (error) {
+
                 ++counter;
+
                 if (error) {
-                    console.log("[ERROR] Database entry could not be created for "+ dog.name + ".");
+                    console.log(colors.red("[ERROR] Database entry could not be created for " + dog.name + "!"));
                     return;
                 }
-                console.log("Database entry created for " + dog.name + ".");
+
+                console.log(colors.grey("Database entry created for " + dog.name + "."));
+
                 if (counter === dogs.length) {
-                    console.log("Database created.");
+                    console.log("Done creating database.".green);
                     callback();
                 }
             });
@@ -462,7 +468,8 @@
             });
 
             imagesLength = images.length;
-            console.log("Converting " + imagesLength + " images...");
+
+            console.log(colors.cyan("Converting " + imagesLength + " images..."));
 
             images.forEach(function (file, i) {
 
@@ -476,19 +483,24 @@
                 Dog.findOne({
                     'image.file': file
                 }, function (error, dog) {
+
                     if (error) {
                         console.log("Error:", error);
                     }
+
                     dog.image.data = encoded;
+
                     dog.save(function (err, result) {
                         if (err) {
-                            console.error('Error saving file ' + file, err);
+                            console.error(colors.red('Error saving file ' + file + "!"), err);
                         }
+
                         ++counter;
-                        console.log("(" + counter + " of " + imagesLength + ") " + file + " converted to Base64 and saved.");
+
+                        console.log("(" + counter + " of " + imagesLength + ") " + colors.grey(file + " converted to Base64 and saved."));
 
                         if (counter === imagesLength) {
-                            console.log("Database images converted.");
+                            console.log("Database images converted.".green);
                             callback();
                         }
                     });

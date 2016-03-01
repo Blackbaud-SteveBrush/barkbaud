@@ -1,4 +1,4 @@
-/*jslint node: true, es5: true, nomen: true*/
+/*jslint node: true, nomen: true*/
 (function () {
     "use strict";
 
@@ -23,19 +23,18 @@
         sessionConfig,
         timeout;
 
+    fs = require('fs');
+    cors = require('cors');
+    http = require('http');
+    https = require('https');
     routes = require('./server/routes');
     express = require('express');
     session = require('express-session');
+    timeout = require('connect-timeout');
     Database = require('./server/database');
     mongoose = require('mongoose');
     MongoStore = require('connect-mongo/es5')(session);
-    //cookieParser = require('cookie-parser');
     bodyParser = require('body-parser');
-    timeout = require('connect-timeout');
-    https = require('https');
-    http = require('http');
-    cors = require('cors');
-    fs = require('fs');
 
     callbacks = [];
     environment = process.env.NODE_ENV || 'development';
@@ -46,7 +45,8 @@
         secret: '+rEchas&-wub24dR'
     };
 
-    if (environment === 'production') {
+    // Only cache the authorized session on production.
+    if (environment === "production") {
         sessionConfig.store = new MongoStore({
             url: process.env.DATABASE_URI
         });
@@ -62,8 +62,7 @@
     app = express();
     app.set('port', port);
     app.use(bodyParser.json());
-    //app.use(cookieParser());
-    app.use(timeout('60s'));
+    app.use(timeout('120s'));
     app.use(session(sessionConfig));
     app.use(cors({
         credentials: true,
@@ -74,11 +73,11 @@
     }));
     app.use('/', express.static(__dirname + '/ui'));
 
-    // Register routes.
     app.get('/auth/authenticated', routes.auth.getAuthenticated);
     app.get('/auth/login', routes.auth.getLogin);
     app.get('/auth/callback', routes.auth.getCallback);
     app.get('/auth/logout', routes.auth.getLogout);
+
     app.get('/api/dogs', routes.auth.checkSession, routes.api.dog.getDogs);
     app.get('/api/dogs/:dogId', routes.auth.checkSession, routes.api.dog.getDog);
     app.get('/api/dogs/:dogId/notes', routes.auth.checkSession, routes.api.dog.getNotes);
@@ -86,8 +85,9 @@
     app.get('/api/dogs/:dogId/currenthome', routes.auth.checkSession, routes.api.dog.getCurrentHome);
     app.get('/api/dogs/:dogId/previoushomes', routes.auth.checkSession, routes.api.dog.getPreviousHomes);
     app.get('/api/dogs/:dogId/findhome', routes.auth.checkSession, routes.api.dog.getFindHome);
+
     app.post('/api/dogs/:dogId/currenthome', routes.auth.checkSession, routes.api.dog.postCurrentHome);
-    app.post('/api/dogs/:dogId/notes', routes.auth.checkSession, routes.api.dog.postNotes)
+    app.post('/api/dogs/:dogId/notes', routes.auth.checkSession, routes.api.dog.postNotes);
 
     // Connect to the database.
     db.connect(function () {

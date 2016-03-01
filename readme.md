@@ -24,7 +24,7 @@
 ### 4)  Create a new Heroku app.
 
 ### 4)  Register for a MongoLab account.
-	- Create a database
+	- Create a database named "barkbaud"
 	- Create a database user
 
 ### 5)  Configure your application.
