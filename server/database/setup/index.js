@@ -1,3 +1,4 @@
+/*jslint node: true, nomen: true*/
 (function () {
     'use strict';
 
@@ -22,7 +23,7 @@
         Dog.collection.remove();
 
         dogs.push(new Dog({
-            bio: "Hi there! My name is Red Baron. The nice folks at CBR have helped me out of a bad situation and I intend to take advantage of my second chance. No looking back. No more being chained outside. No more sleeping on the cold, hard ground. No more going to sleep hungry. That’s the best part, cause I really like food! At my foster home, I have my own soft bed and my own den, they call a crate. It’s pretty nice I guess, as long as I can have my Nylabone to chew on! It’s a pretty nice place to sleep in at night. It beats sleeping outside, I can tell you that! I go for leisurely walks every day. I like that too! I went to a clinic yesterday and they gave me some medicine to get rid of the worms in my belly.",
+            bio: "Hi there! My name is Red Baron. The nice folks at CBR have helped me out of a bad situation and I intend to take advantage of my second chance. No looking back. No more being chained outside. No more sleeping on the cold, hard ground. No more going to sleep hungry. That's the best part, cause I really like food! At my foster home, I have my own soft bed and my own den, they call a crate. It's pretty nice I guess, as long as I can have my Nylabone to chew on! It's a pretty nice place to sleep in at night. It beats sleeping outside, I can tell you that! I go for leisurely walks every day. I like that too! I went to a clinic yesterday and they gave me some medicine to get rid of the worms in my belly.",
             breed: "Boxer",
             createdAt: "2015-10-16T19:18:12.685Z",
             gender: "Male",
@@ -180,7 +181,7 @@
         }));
 
         dogs.push(new Dog({
-            bio: "Dash is my name.  I am very active and love to play. I can sleep in a crate and eat snacks.  I'm about 25 pounds but If I eat snacks, then maybe 26 pounds.  I love other dogs.  The dog park is the best.  I think I’m fast but my friend Tucker is even faster.  Did I mention that I like to play?  I’d rather play with a tennis ball or chew toy than your shoes.  I realize that’s a no-no.  I’m not a bad dog, I'm a good dog.  While I have white fur that shows dirt, this does not mean that I am a bad dog.  I’m happy outside or inside.  I will let others know not to mess with my family with my powerful bark!  ARF!!",
+            bio: "Dash is my name.  I am very active and love to play. I can sleep in a crate and eat snacks.  I'm about 25 pounds but If I eat snacks, then maybe 26 pounds.  I love other dogs.  The dog park is the best.  I think I'm fast but my friend Tucker is even faster.  Did I mention that I like to play?  I'd rather play with a tennis ball or chew toy than your shoes.  I realize that's a no-no.  I'm not a bad dog, I'm a good dog.  While I have white fur that shows dirt, this does not mean that I am a bad dog.  I'm happy outside or inside.  I will let others know not to mess with my family with my powerful bark!  ARF!!",
             breed: "Terrier",
             createdAt: "2015-10-16T20:54:25.364Z",
             gender: "Male",
@@ -224,7 +225,7 @@
         }));
 
         dogs.push(new Dog({
-            bio: "Meet Lilly. Lilly is about 4 years old and around 80 pounds. This girl is VERY shy. Lilly is well mannered but a quiet, shy girl learning to trust again. She is house, crate and leash trained. In fact she loves to go on walks. She knows some basic commands. Lilly’s coat seems to be darkening as she gets fitter. She is great with other dogs, but probably best with older children given her shyness. Lilly would be best in a quiet home with other dogs and a patient, loving owner.",
+            bio: "Meet Lilly. Lilly is about 4 years old and around 80 pounds. This girl is VERY shy. Lilly is well mannered but a quiet, shy girl learning to trust again. She is house, crate and leash trained. In fact she loves to go on walks. She knows some basic commands. Lilly's coat seems to be darkening as she gets fitter. She is great with other dogs, but probably best with older children given her shyness. Lilly would be best in a quiet home with other dogs and a patient, loving owner.",
             breed: "Labrador Retriever",
             createdAt: "2015-10-15T18:03:41.918Z",
             gender: "Female",
@@ -261,7 +262,7 @@
         }));
 
         dogs.push(new Dog({
-            bio: "Komeki is a calm and quiet girl who turns funny once she warms up to you. She somehow became separated from her family and was found wandering around. She’d like a new family to hang out with. She likes sunbaths, going for walks, and relaxing at home. She has been fine with other dogs but is unknown with cats or children. She is estimated to be 5-6 years old.",
+            bio: "Komeki is a calm and quiet girl who turns funny once she warms up to you. She somehow became separated from her family and was found wandering around. She'd like a new family to hang out with. She likes sunbaths, going for walks, and relaxing at home. She has been fine with other dogs but is unknown with cats or children. She is estimated to be 5-6 years old.",
             breed: "Akita",
             createdAt: "2015-10-16T19:44:00.123Z",
             gender: "Female",

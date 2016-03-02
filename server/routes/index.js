@@ -1,3 +1,4 @@
+/*jslint node: true, nomen: true*/
 (function () {
     'use strict';
 
@@ -5,12 +6,6 @@
 
     routes = {
         api: {}
-    };
-
-    routes.index = function (req, res) {
-        res.status(200).json({
-            data: []
-        });
     };
 
     routes.auth = require('./auth');

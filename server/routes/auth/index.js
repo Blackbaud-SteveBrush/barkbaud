@@ -133,8 +133,10 @@
      * @param {Object} response
      */
     function getLogout(request, response) {
-        var redirect = request.session.redirect || '/',
+        var redirect,
             token;
+
+        redirect = request.session.redirect || '/';
 
         function go() {
             request.session.destroy();

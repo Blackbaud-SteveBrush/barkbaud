@@ -17,7 +17,9 @@
      * @param {Function} callback
      */
     function proxy(request, method, endpoint, body, callback) {
-        var options = {
+        var options;
+
+        options = {
             json: true,
             method: method,
             body: body,

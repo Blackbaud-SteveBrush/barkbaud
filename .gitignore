@@ -3,7 +3,5 @@ node_modules
 bower_components
 .env
 !.env-sample
-env.bat
-!env-sample.bat
 .DS_Store
 ui

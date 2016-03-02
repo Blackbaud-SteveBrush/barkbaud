@@ -50,4 +50,5 @@ module.exports = function (grunt) {
         'copy:build',
         'api'
     ]);
+    grunt.registerTask('default', ['build']);
 };
