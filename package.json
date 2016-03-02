@@ -6,29 +6,28 @@
   "scripts": {
     "setup": "node ./bin/setup",
     "start": "node ./bin/start.js",
-    "postinstall": "node ./bin/deploy"
+    //"postinstall": "node ./bin/deploy"
   },
   "dependencies": {
     "async": "^1.5.2",
     "body-parser": "^1.14.1",
-    "bower": "^1.7.7",
     "colors": "^1.1.2",
     "connect-mongo": "^1.1.0",
     "connect-timeout": "^1.7.0",
     "continuation-local-storage": "^3.1.6",
-    "cookie-parser": "^1.4.1",
     "cors": "^2.7.1",
     "dotenv": "^2.0.0",
     "express": "^4.13.3",
     "express-session": "^1.11.3",
-    "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-copy": "^0.8.1",
     "mongoose": "^4.4.4",
     "request": "^2.64.0",
     "request-promise": "^1.0.1",
     "simple-oauth2": "^0.2.1",
     "yesno": "0.0.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.8.1"
   },
   "engines": {
     "node": "0.12.7"

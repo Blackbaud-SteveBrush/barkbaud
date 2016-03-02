@@ -22,7 +22,11 @@ To run this application in your environment, you will need a server (such as you
 
 - The latest, stable version of [NodeJS](https://nodejs.org/)
 - The latest, stable version of [Git](https://git-scm.com/)
-- A reliable internet connection for cloning the repo and installing this project's dependencies
+- Bower and Grunt CLI installed on your system, globally:
+```
+$  npm install -g bower
+$  npm install -g grunt-cli
+```
 
 ### Sky API requirements:
 
@@ -48,10 +52,10 @@ $  cd barkbaud
 
 #### 3)  Connect Barkbaud to your database
 
-- On your server (or local machine), open the **barkbaud** working directory and copy the configuration file **.env-sample**, saving it as **.env**.  
-- Open the **.env** file in a text editor (such as Notepad or TextEdit). 
+- On your server (or local machine), open the **barkbaud** working directory and copy the configuration file **barkbaud.env-sample**, saving it as **barkbaud.env**.  
+- Open the **barkbaud.env** file in a text editor (such as Notepad or TextEdit). 
 - You should see a list of variables which will serve to configure Barkbaud's NodeJS environment.
-- Update **.env** with the following values:<br><br>
+- Update **barkbaud.env** with the following values:<br><br>
     <table>
     <tr>
         <td>**AUTH_CLIENT_ID**</td>
@@ -74,8 +78,8 @@ $  cd barkbaud
         <td>The MongoDB connection string, which points to your mLab database. The string should follow this format: `mongodb://<dbuser>:<dbpassword>@<dbaddress>/<dbname>`. More details about how to find your connection string can be found at [mLab's Documentation](http://docs.mlab.com/connecting/#connect-string).</td>
     </tr>
     </table>
-- Save the **.env** file. 
-- Review the **.gitignore** file.  The purpose of this file is to specify which directories and files Git should ignore when performing a commit. Note that the **.env** file is ignored. This prevents the file from being synced to your repository and protects your registered application's keys and other sensitive data from being exposed.
+- Save the **barkbaud.env** file. 
+- Review the **.gitignore** file.  The purpose of this file is to specify which directories and files Git should ignore when performing a commit. Note that the **barkbaud.env** file is ignored. This prevents the file from being synced to your repository and protects your registered application's keys and other sensitive data from being exposed.
 
 #### 4)  Build and test the application
 
@@ -97,7 +101,7 @@ The second command starts the NodeJS server, automatically opening a Web browser
 - Create a [free Heroku account](https://signup.heroku.com/login).
 - From your Heroku Dashboard, create a new Heroku NodeJS application.
 - Edit your [Blackbaud Application](https://developerapp.sky.blackbaud.com/applications) and add a new **Redirect URL** that points to your Heroku application's URL. This URL should also include the path "/auth/callback" (for example: "https://<your-heroku-app-name>.herokuapp.com/auth/callback").
-- Open the **.env** file and change the variable **AUTH_REDIRECT_URI** to reference this new URL.
+- Open the **barkbaud.env** file and change the variable **AUTH_REDIRECT_URI** to reference this new URL.
 - Install the [Heroku Toolbelt](https://toolbelt.heroku.com/) on your local machine. It's a command line interface (CLI) built specifically for Heroku applications.
 - Open Terminal/Command Prompt and login to Heroku via the Toolbelt: 
 
@@ -110,6 +114,8 @@ $  heroku login
 
 ```
 barkbaud $  git remote add heroku git@heroku.com:<your-heroku-app-name>.git
+// Or...
+barkbaud $ heroku git:remote -a app-name
 ```
 
 - Finally, in the **barkbaud** working directory, type:

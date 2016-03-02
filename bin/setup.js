@@ -15,14 +15,14 @@
 
     //isWindows = /^win/.test(process.platform);
     commands = [
-        'npm install --ignore-scripts',
-        'bower install'
+        //'npm install',
+//        'bower install'
     ];
 
     function start() {
         console.log("Setup started (this may take a few minutes)...");
 
-        sequence(commands, function () {
+        //sequence(commands, function () {
 
             commands = [];
             colors = require('colors');
@@ -36,10 +36,12 @@
                     'AUTH_REDIRECT_URI=' + process.env.AUTH_REDIRECT_URI,
                     'DATABASE_URI=' + process.env.DATABASE_URI
                 ];
+
+                // Set the Heroku app config vars.
                 commands.push('heroku config:set ' + configVars.join(" "));
             }
 
-            commands.push('grunt build');
+            //commands.push('grunt build');
 
             sequence(commands, function () {
                 process.env.npm_config_build_database = true;
@@ -47,7 +49,7 @@
                     console.log("Setup complete!".cyan);
                 });
             });
-        });
+        //});
     }
 
     fs.open('node_modules', 'r', function (error) {
@@ -56,7 +58,7 @@
         } else {
             colors = require('colors');
             require('yesno').ask(
-                'This process will reset your database to defaults, and overwrite everything in the ui/ folder.' +
+                'This process will reset your database to the defaults.' +
                 colors.yellow('\nAre you sure you want to continue? (y/n)'), true, function (ok) {
                 if (ok) {
                     start();

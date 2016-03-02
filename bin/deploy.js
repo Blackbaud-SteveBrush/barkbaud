@@ -3,8 +3,10 @@ var fs = require('fs');
 var commands = [];
 
 commands = [
-    'bower install',
-    'grunt build'
+    //'npm install bower --ignore-scripts',
+    //'npm install grunt-cli --ignore-scripts',
+    //'bower install',
+    //'grunt build'
 ];
 
 sequence(commands, function () {
