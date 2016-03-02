@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "setup": "node ./bin/setup",
-    "start": "node ./bin/start.js",
-    //"postinstall": "node ./bin/deploy"
+    "start": "node ./bin/start.js"
   },
   "dependencies": {
     "async": "^1.5.2",

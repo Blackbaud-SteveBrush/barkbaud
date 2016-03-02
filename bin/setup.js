@@ -7,22 +7,16 @@
         configVars,
         dotenv,
         fs,
-        //isWindows,
         sequence;
 
     sequence = require(__dirname + '/lib/sequence');
     fs = require('fs');
-
-    //isWindows = /^win/.test(process.platform);
-    commands = [
-        //'npm install',
-//        'bower install'
-    ];
+    commands = [];
 
     function start() {
         console.log("Setup started (this may take a few minutes)...");
 
-        //sequence(commands, function () {
+        sequence(commands, function () {
 
             commands = [];
             colors = require('colors');
@@ -49,7 +43,7 @@
                     console.log("Setup complete!".cyan);
                 });
             });
-        //});
+        });
     }
 
     fs.open('node_modules', 'r', function (error) {

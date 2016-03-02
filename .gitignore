@@ -3,3 +3,5 @@ node_modules
 bower_components
 barkbaud.env
 .DS_Store
+.env
+!.env-sample
