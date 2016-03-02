@@ -4,7 +4,7 @@
     var app,
         dotenv;
 
-    dotenv = require('dotenv').config();
+    dotenv = require('dotenv').config({ path: 'barkbaud.env' });
     app = require('../index.js');
 
 }());

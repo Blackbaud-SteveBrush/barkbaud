@@ -26,7 +26,7 @@
 
             commands = [];
             colors = require('colors');
-            dotenv = require('dotenv').config();
+            dotenv = require('dotenv').config({ path: 'barkbaud.env' });
 
             if (process.env.npm_config_heroku) {
                 configVars = [
