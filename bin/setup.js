@@ -10,7 +10,6 @@
         //isWindows,
         sequence;
 
-    colors = require('colors');
     sequence = require(__dirname + '/lib/sequence');
     fs = require('fs');
 
@@ -21,11 +20,12 @@
     ];
 
     function start() {
-        console.log("Setup started (this may take a few minutes)...".cyan);
+        console.log("Setup started (this may take a few minutes)...");
 
         sequence(commands, function () {
 
             commands = [];
+            colors = require('colors');
             dotenv = require('dotenv').config();
 
             if (process.env.npm_config_heroku) {
@@ -54,6 +54,7 @@
         if (error && error.code === 'ENOENT') {
             start();
         } else {
+            colors = require('colors');
             require('yesno').ask(
                 'This process will reset your database to defaults, and overwrite everything in the ui/ folder.' +
                 colors.yellow('\nAre you sure you want to continue? (y/n)'), true, function (ok) {
