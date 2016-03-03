@@ -4,7 +4,8 @@
   "description": "A Blackbaud Sky API/UX demo application.",
   "main": "index.js",
   "scripts": {
-    "setup": "node ./bin/setup",
+    "build": "grunt build",
+    "setup": "node ./bin/setup.js",
     "start": "node ./bin/start.js"
   },
   "dependencies": {

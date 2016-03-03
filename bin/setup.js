@@ -1,47 +1,50 @@
-/*global require, __dirname, process, console*/
+/*jslint node: true, nomen: true*/
 (function () {
     'use strict';
 
     var colors,
-        commands,
-        configVars,
         dotenv,
         fs,
-        sequence;
+        sequence,
+        yesno;
 
-    sequence = require(__dirname + '/lib/sequence');
     fs = require('fs');
-    commands = [];
+    yesno = require('yesno');
+    dotenv = require('dotenv').config({ path: 'barkbaud.env' });
+    colors = require('colors');
+    sequence = require(__dirname + '/lib/sequence');
 
     function start() {
-        console.log("Setup started (this may take a few minutes)...");
+        var commands,
+            configVars;
+
+        console.log("Setup started (this may take a few minutes)...".cyan);
+
+        commands = [];
+        configVars = [];
+
+        // Heroku deployment configurations.
+        if (process.env.npm_config_heroku) {
+            configVars = [
+                'AUTH_CLIENT_ID=' + process.env.AUTH_CLIENT_ID,
+                'AUTH_CLIENT_SECRET=' + process.env.AUTH_CLIENT_SECRET,
+                'AUTH_SUBSCRIPTION_KEY=' + process.env.AUTH_SUBSCRIPTION_KEY,
+                'AUTH_REDIRECT_URI=' + process.env.AUTH_REDIRECT_URI,
+                'DATABASE_URI=' + process.env.DATABASE_URI
+            ];
+
+            // Set the Heroku app config vars.
+            commands.push('heroku config:set ' + configVars.join(" "));
+        }
 
         sequence(commands, function () {
 
-            commands = [];
-            colors = require('colors');
-            dotenv = require('dotenv').config({ path: 'barkbaud.env' });
+            // Setting this config var will tell Barkbaud to build the database.
+            process.env.npm_config_build_database = true;
 
-            if (process.env.npm_config_heroku) {
-                configVars = [
-                    'AUTH_CLIENT_ID=' + process.env.AUTH_CLIENT_ID,
-                    'AUTH_CLIENT_SECRET=' + process.env.AUTH_CLIENT_SECRET,
-                    'AUTH_SUBSCRIPTION_KEY=' + process.env.AUTH_SUBSCRIPTION_KEY,
-                    'AUTH_REDIRECT_URI=' + process.env.AUTH_REDIRECT_URI,
-                    'DATABASE_URI=' + process.env.DATABASE_URI
-                ];
-
-                // Set the Heroku app config vars.
-                commands.push('heroku config:set ' + configVars.join(" "));
-            }
-
-            //commands.push('grunt build');
-
-            sequence(commands, function () {
-                process.env.npm_config_build_database = true;
-                require('../index.js').ready(function () {
-                    console.log("Setup complete!".cyan);
-                });
+            // Run the app (equivalent to `node index.js`).
+            require('../index.js').ready(function () {
+                console.log("Setup complete!".cyan);
             });
         });
     }
@@ -50,8 +53,7 @@
         if (error && error.code === 'ENOENT') {
             start();
         } else {
-            colors = require('colors');
-            require('yesno').ask(
+            yesno.ask(
                 'This process will reset your database to the defaults.' +
                 colors.yellow('\nAre you sure you want to continue? (y/n)'), true, function (ok) {
                 if (ok) {
